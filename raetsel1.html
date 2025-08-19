@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rätsel Challenge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .lock-icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .input-group {
+            margin-bottom: 30px;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            width: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .error {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .gift-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gift-icon">🎉</div>
+        <div class="lock-icon">🧩</div>
+        <h1>Herzlichen Glückwunsch!</h1>
+        <p>Du hast alle Boxen geöffnet, hier das letzte Rätsel für diese Aufgabe. Finde das richtige Lösungswort, um unsere erste Station zu enthüllen.<br><br><strong>Tipp:</strong> Schau dir die vorherigen Lösungen nochmals genau an!</p>
+        
+        <div class="input-group">
+            <input type="password" id="passwordInput" placeholder="Lösungswort eingeben..." autofocus>
+        </div>
+        
+        <button onclick="checkPassword()">Lösung prüfen</button>
+        
+        <div id="errorMessage" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorDiv = document.getElementById('errorMessage');
+            
+            if (password === 'Mailand') {
+                // Erfolgreiche Authentifizierung
+                document.querySelector('.container').innerHTML = `
+                    <div class="gift-icon">🎊</div>
+                    <h1>Richtig gelöst! 🎯</h1>
+                    <p>Perfekt! Du wirst in 3 Sekunden zur ersten Station weitergeleitet...</p>
+                `;
+                
+                // Weiterleitung nach 3 Sekunden
+                setTimeout(() => {
+                    window.location.href = 'https://drive.google.com/file/d/12LeeKCElVpelpQm3tDsyxZqffIkx43dW/view?usp=drive_link';
+                }, 3000);
+                
+            } else {
+                // Falsches Passwort
+                errorDiv.textContent = 'Falsches Lösungswort. Schau dir den Tipp nochmal genau an!';
+                errorDiv.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+        
+        // Enter-Taste Unterstützung
+        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
